@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import axios from '../../axios-orders';
 
 
-import Aux from '../../hoc/Aux';
+import Aux from '../../hoc/Auxiliary';
 import Burguer from '../../components/Burguer/Burguer';
 import BuildControls from '../../components/Burguer/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
