@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+
 import axios from '../../axios-orders';
+
 
 
 import Aux from '../../hoc/Auxiliary';
@@ -10,7 +12,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burguer/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import * as actionTypes from '../../store/actions';
+import * as actions from '../../store/actions';
 
 
 
@@ -18,19 +20,11 @@ class BurguerBuilder extends Component {
 
     state = {
         purchasing: false,
-        loading: false,
-        error: false
     }
 
-    /* componentDidMount() {
-        axios.get('https://burguer-builder-26b3a.firebaseio.com/ingredients.json')
-            .then(response => {
-                this.setState({ ingredients: response.data });
-            })
-            .catch(error => {
-                this.setState({error: true});
-            });
-    } */
+     componentDidMount() {
+      this.props.onInitIngredients(); 
+    } 
 
     updatePurchaseState(ingredients) {
         const sum = Object.keys(ingredients)
@@ -53,6 +47,7 @@ class BurguerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
+            this.props.onInitPurchase();
             this.props.history.push('/checkout');
     }
 
@@ -64,7 +59,7 @@ class BurguerBuilder extends Component {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
         let orderSummary = null;
-        let burguer =this.state.error ? <p>Ingredients cant't be loaded</p> : <Spinner />
+        let burguer =this.props.error ? <p>Ingredients cant't be loaded</p> : <Spinner />
 
         if (this.props.ings) {
             burguer = (
@@ -86,9 +81,7 @@ class BurguerBuilder extends Component {
         }
 
           
-        if (this.state.loading) {
-            orderSummary = <Spinner />
-        }
+     
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
@@ -102,15 +95,18 @@ class BurguerBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-       ings: state.ingredients,
-       price: state.totalPrice
+       ings: state.burguerBuilder.ingredients,
+       price: state.burguerBuilder.totalPrice,
+       error: state.burguerBuilder.error
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientAdded: (ingName) => dispatch({type: actionTypes.ADD_INGREDIENTS, ingredientName: ingName }), 
-        onIngredientRemoved: (ingName) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName }) 
+        onIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)), 
+        onIngredientRemoved: (ingName) => dispatch(actions.removeIngredient(ingName)),
+        onInitIngredients: () => dispatch(actions.initIngredients()),
+        onInitPurchase: () => dispatch(actions.purchaseInit())
     }
 } 
 
