@@ -1,6 +1,5 @@
 Link para aplicação: https://burguer-builder-26b3a.web.app/
 
-<img src="https://i.ibb.co/9pxbkFS/burger-app.png">
 <img src="https://i.ibb.co/brbXG3k/burger-app2.png">
 
 
