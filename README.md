@@ -1,7 +1,7 @@
 Link para aplicação: https://burguer-builder-26b3a.web.app/
 
-<img src="burger_app.PNG">
-<img src="burger_app2.PNG">
+<img src="https://drive.google.com/file/d/1lz7N0R6YCL-LZpQistAMsgRuyW8AOv91/view?usp=sharing">
+<img src="https://drive.google.com/file/d/1eUdqC3XSidoqKZ8w6JyVfUfRvad7KQpq/view?usp=sharing">
 
 
 
